@@ -40,7 +40,7 @@ export function PriceChart({ data, isLoading, onHover, currency = 'MXN' }: Price
   }
 
   return (
-    <div className='absolute z-0 bottom-0 w-full h-[65vh]'>
+    <div className='absolute z-0 bottom-0 w-full h-[65vh] p-2 md:p-4'>
       <ResponsiveContainer width='100%' height='100%'>
         <AreaChart
           data={chartData}
