@@ -26,7 +26,7 @@ interface CalculatorModalProps {
   price: PriceData | null;
 }
 
-function formatFiat(value: number, locale: string = 'es-MX'): string {
+export function formatFiat(value: number, locale: string = 'es-MX'): string {
   return value.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
@@ -68,8 +68,8 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
   }, [open, satsOnTop]);
 
   // const formatSatPrice = (p: number): string => {
-  //   if (p >= 0.01) return p.toFixed(3);
-  //   return p.toFixed(2);
+  //   if (p >= 0.01) return p.toFixed(2);
+  //   return p.toFixed(3);
   // };
 
   return (

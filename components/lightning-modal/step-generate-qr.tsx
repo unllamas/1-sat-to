@@ -57,7 +57,7 @@ export function StepGenerateQR({ onBack, onNext }: StepGenerateQRProps) {
                   </div>
                   <div className='inline-flex items-center'>
                     <Satoshi className='size-4 text-foreground' />
-                    <p className='text-foreground'>{amount}</p>
+                    <p className='text-foreground'>{amount.toLocaleString()}</p>
                     <p className='ml-1'>SAT</p>
                   </div>
                 </div>
