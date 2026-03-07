@@ -43,7 +43,7 @@ export function PriceDisplay({ price, priceChange, timeframeLabel }: PriceDispla
         <span className='text-neutral-400 text-lg font-medium'>{price?.currency || 'MXN'}</span>
       </div>
 
-      {/* <div className='flex items-center gap-3 mt-1.5'>
+      <div className='flex items-center gap-3 mt-1.5'>
         {priceChange !== null ? (
           <span className={`text-xs font-medium ${priceChange >= 0 ? 'text-green-400' : 'text-red-400'}`}>
             {priceChange >= 0 ? '+' : ''}
@@ -57,11 +57,10 @@ export function PriceDisplay({ price, priceChange, timeframeLabel }: PriceDispla
             {new Date(price.timestamp).toLocaleTimeString('es-MX', {
               hour: '2-digit',
               minute: '2-digit',
-              second: '2-digit',
             })}
           </span>
         )}
-      </div> */}
+      </div>
     </div>
   );
 }

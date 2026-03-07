@@ -1,15 +1,23 @@
-'use client'
+'use client';
 
-import { Palette, X } from 'lucide-react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { useTheme, THEMES } from '@/lib/theme-context'
-import { Theme } from '@/lib/types'
+import { Palette, X } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+  DialogBody,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { useTheme, THEMES } from '@/lib/theme-context';
+import { Theme } from '@/lib/types';
 
 interface ThemeModalProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 const THEME_PREVIEWS: Record<Theme, React.CSSProperties> = {
@@ -39,34 +47,24 @@ const THEME_PREVIEWS: Record<Theme, React.CSSProperties> = {
       linear-gradient(90deg, rgba(0, 255, 65, 0.08) 1px, transparent 1px)`,
     backgroundSize: '8px 8px',
   },
-}
+};
 
 export function ThemeModal({ open, onOpenChange }: ThemeModalProps) {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-neutral-900 border-white/[0.06] text-white max-w-md p-5 rounded-t-2xl sm:rounded-2xl" showCloseButton={false}>
-        <DialogHeader className="flex-row items-center justify-between space-y-0 mb-5">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-orange-500/10 flex items-center justify-center">
-              <Palette className="w-4 h-4 text-orange-400" />
-            </div>
-            <div>
-              <DialogTitle className="text-base font-semibold text-white">Apariencia</DialogTitle>
-              <DialogDescription className="text-neutral-500 text-[11px]">
-                Personaliza el fondo
-              </DialogDescription>
-            </div>
-          </div>
+      <DialogContent className='max-w-sm' showCloseButton={false}>
+        <DialogHeader className='h-auto flex-row items-center justify-between'>
+          <DialogTitle className='text-base font-semibold text-white'>Apariencia</DialogTitle>
           <DialogClose asChild>
-            <Button variant="ghost" size="icon" className="rounded-lg hover:bg-neutral-800 text-neutral-400">
-              <X className="w-5 h-5" />
+            <Button variant='ghost' size='icon' className='rounded-lg hover:bg-neutral-800 text-neutral-400'>
+              <X className='w-5 h-5' />
             </Button>
           </DialogClose>
         </DialogHeader>
 
-        <div className="grid grid-cols-3 gap-3">
+        <DialogBody className='grid grid-cols-2 gap-2'>
           {THEMES.map(({ name, label }) => (
             <button
               key={name}
@@ -75,18 +73,18 @@ export function ThemeModal({ open, onOpenChange }: ThemeModalProps) {
                 'rounded-xl border-2 p-2.5 text-center transition-all cursor-pointer',
                 theme === name
                   ? 'border-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.15)]'
-                  : 'border-white/[0.06] hover:border-orange-500/40'
+                  : 'border-white/[0.06] hover:border-orange-500/40',
               )}
             >
               <div
-                className="w-full h-14 rounded-lg mb-2 border border-white/[0.04] overflow-hidden"
+                className='w-full h-14 rounded-lg mb-2 border border-white/[0.04] overflow-hidden'
                 style={THEME_PREVIEWS[name]}
               />
-              <span className="text-[11px] font-medium text-neutral-300">{label}</span>
+              <span className='text-[11px] font-medium text-neutral-300'>{label}</span>
             </button>
           ))}
-        </div>
+        </DialogBody>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

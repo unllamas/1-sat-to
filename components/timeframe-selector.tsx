@@ -14,7 +14,7 @@ export function TimeframeSelector({ current, onChange }: TimeframeSelectorProps)
 
   return (
     <div className='relative z-10 px-5 pb-2 flex justify-center'>
-      <div className='flex gap-0.5 bg-neutral-900/80 rounded-full p-0.5 border border-white/4 w-fit'>
+      <div className='flex gap-0.5 bg-card rounded-full p-2 border border-white/4 w-fit'>
         {timeframes.map(([key, config]) => (
           <Button key={key} onClick={() => onChange(key)} variant={current === key ? 'default' : 'ghost'}>
             {config.label}

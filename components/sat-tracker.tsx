@@ -7,6 +7,8 @@ import { useSatTracker } from '@/hooks/use-sat-tracker';
 
 import { DEFAULT_CURRENCY } from '@/lib/types';
 
+import { LightningProvider } from '@/context/lightning-context';
+
 import { PriceDisplay } from '@/components/price-display';
 import { PriceChart } from '@/components/price-chart';
 import { TimeframeSelector } from '@/components/timeframe-selector';
@@ -15,8 +17,7 @@ import { ThemeModal } from '@/components/theme-modal';
 import { CurrencySelector } from '@/components/currency-selector';
 import { NavDock } from '@/components/nav-dock';
 import { SatoshiInfoModal } from '@/components/satoshi-info-modal';
-import { LightningPayModal } from './lightning-modal';
-import { LightningProvider } from '@/context/lightning-context';
+import { LightningPayModal } from '@/components/lightning-modal';
 
 interface SatTrackerProps {
   initialCurrency?: string;
@@ -48,11 +49,6 @@ export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerPro
     router.push(queryString ? `/?${queryString}` : '/');
   };
 
-  const handleSuccess = (data: { planId: string; invoice: string }) => {
-    console.log('✅ Payment successful!', data);
-    // Handle successful payment (e.g., update user credits, show confirmation)
-  };
-
   return (
     <div className='relative w-full h-screen flex flex-col overflow-hidden'>
       {/* Header with currency selector */}
@@ -64,7 +60,16 @@ export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerPro
       <div className='relative flex flex-col pt-24 flex-1'>
         <PriceDisplay price={price} priceChange={priceChange} timeframeLabel={timeframeLabel} />
 
-        <TimeframeSelector current={timeframe} onChange={changeTimeframe} />
+        <TimeframeSelector
+          current={timeframe}
+          onChange={(currentTime) => {
+            if (currentTime === timeframe) {
+              return null;
+            }
+
+            changeTimeframe(currentTime);
+          }}
+        />
       </div>
 
       {/* Chart */}

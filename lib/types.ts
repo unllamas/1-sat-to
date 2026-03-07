@@ -11,7 +11,7 @@ export interface HistoricalDataPoint {
   value: number;
 }
 
-export type Timeframe = '3m' | '6m';
+export type Timeframe = '3m' | '6m' | '1y' | '5y';
 
 export type Theme = 'midnight' | 'aurora' | 'cosmos' | 'ember' | 'ocean' | 'matrix';
 
@@ -37,6 +37,6 @@ export const DEFAULT_CURRENCY = 'MXN';
 export const TIMEFRAME_CONFIG: Record<Timeframe, { label: string; daysBack: number; intervalMinutes: number }> = {
   '3m': { label: '3M', daysBack: 90, intervalMinutes: 480 },
   '6m': { label: '6M', daysBack: 180, intervalMinutes: 720 },
-  // '1y': { label: '1A', daysBack: 365, intervalMinutes: 1440 },
-  // '5y': { label: '5A', daysBack: 1825, intervalMinutes: 4320 },
+  '1y': { label: '1A', daysBack: 365, intervalMinutes: 1440 },
+  '5y': { label: '5A', daysBack: 1825, intervalMinutes: 4320 },
 };
