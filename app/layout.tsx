@@ -4,6 +4,7 @@ import { GeistSans } from 'geist/font/sans';
 import { ThemeProvider } from '@/lib/theme-context';
 
 import { UmamiAnalytics } from '@/components/umami-analytics';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 import './globals.css';
 
@@ -38,7 +39,9 @@ export default function RootLayout({
   return (
     <html lang='es'>
       <body className={`${GeistSans.className} font-sans antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+        </ThemeProvider>
         {BASE_ENVIRONMENT === 'production' && <UmamiAnalytics />}
       </body>
     </html>
