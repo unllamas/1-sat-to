@@ -108,7 +108,7 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                 </div>
               </div>
             ) : (
-              <div className='flex flex-col justify-center min-h-20 px-4 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% border backdrop-blur-sm shadow-lg shadow-black rounded-xl cursor-text'>
+              <div className='flex flex-col justify-center min-h-20 px-4 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% border border-white/60 backdrop-blur-sm shadow-lg shadow-black rounded-xl cursor-text'>
                 <div className='flex justify-between w-full text-sm'>
                   <p>{currency.name}</p>
                   <p className='text-muted-foreground'>({currency.code})</p>
@@ -126,7 +126,7 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                     min='0'
                     max='100000000'
                     autoFocus
-                    className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-orange-500 placeholder:text-muted-foreground'
+                    className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-transparent placeholder:text-muted-foreground'
                   />
                 </div>
               </div>

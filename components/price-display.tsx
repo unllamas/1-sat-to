@@ -47,7 +47,7 @@ export function PriceDisplay({ price, priceChange, timeframeLabel }: PriceDispla
         {priceChange !== null ? (
           <span className={`text-xs font-medium ${priceChange >= 0 ? 'text-green-400' : 'text-red-400'}`}>
             {priceChange >= 0 ? '+' : ''}
-            {priceChange.toFixed(2)}% ({timeframeLabel})
+            {Number(priceChange.toFixed(2)).toLocaleString('es-ES')}% ({timeframeLabel})
           </span>
         ) : (
           <span className='text-xs font-medium text-neutral-500'>Cargando...</span>
