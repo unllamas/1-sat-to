@@ -13,8 +13,9 @@ interface PriceDisplayProps {
 }
 
 export function formatSatPrice(price: number): string {
-  if (price >= 1) return price.toFixed(2);
-  if (price >= 0.01) return price.toFixed(2);
+  if (price >= 0.5) return price.toFixed(2);
+  if (price >= 0.01) return price.toFixed(3);
+
   return price.toFixed(3);
 }
 
@@ -49,7 +50,7 @@ export function PriceDisplay({ price, displaySatPrice, priceChange, timeframeLab
             <Dollar />
           </div>
           <span className='text-white text-5xl font-bold tracking-tight tabular-nums'>
-            {satPriceToShow ? formatSatPrice(satPriceToShow) : '—'}
+            {satPriceToShow ? Number(formatSatPrice(satPriceToShow)).toLocaleString('es-ES') : '—'}
           </span>
         </div>
         <span className='text-neutral-400 text-lg font-medium'>{price?.currency || 'MXN'}</span>
