@@ -1,5 +1,4 @@
 export interface LightningPlan {
-  id: string;
   title: string;
   price: number; // in SAT
   token?: string;

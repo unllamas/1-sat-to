@@ -12,7 +12,6 @@ import type { LightningPlan, PaymentStep } from '@/types';
 import { Dialog, DialogBody, DialogContent, DialogFooter } from '../ui/dialog';
 import { plans } from '@/config/plans';
 import { useLightning } from '@/context/lightning-context';
-import { set } from 'react-hook-form';
 
 interface LightningPayModalProps {
   open: boolean;

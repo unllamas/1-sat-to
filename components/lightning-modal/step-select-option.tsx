@@ -33,8 +33,8 @@ export function StepSelectOption({ plans, onNext }: StepSelectOptionProps) {
         />
       </div> */}
       <DialogBody className='flex-row flex-wrap gap-2 justify-center'>
-        {plans.map((plan: LightningPlan) => (
-          <Button className='px-8' variant='secondary' key={plan?.id} onClick={() => onNext(plan)}>
+        {plans.map((plan: LightningPlan, index) => (
+          <Button className='px-8' variant='secondary' key={index} onClick={() => onNext(plan)}>
             ${plan?.price}
           </Button>
         ))}
