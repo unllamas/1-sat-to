@@ -25,7 +25,7 @@ interface CalculatorModalProps {
   price: PriceData | null;
 }
 
-export function formatFiat(value: number, locale: string = 'es-MX'): string {
+export function formatFiat(value: number, locale: string = 'es-ES'): string {
   return value.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
