@@ -1,6 +1,6 @@
 'use client';
 
-import { Calculator, Info, Palette } from 'lucide-react';
+import { Calculator, Gift, Heart, Info, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from './ui/separator';
 import Link from 'next/link';
@@ -9,9 +9,10 @@ interface NavDockProps {
   onCalculatorClick: () => void;
   onThemeClick: () => void;
   onInfoClick: () => void;
+  onDonationClick: () => void;
 }
 
-export function NavDock({ onCalculatorClick, onThemeClick, onInfoClick }: NavDockProps) {
+export function NavDock({ onCalculatorClick, onThemeClick, onInfoClick, onDonationClick }: NavDockProps) {
   return (
     <div className='fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-8 px-4'>
       <div className='flex items-center gap-2 p-2 bg-background backdrop-blur-xl border border-white/6 rounded-full shadow-2xl shadow-black/50'>
@@ -23,6 +24,9 @@ export function NavDock({ onCalculatorClick, onThemeClick, onInfoClick }: NavDoc
         </Button> */}
         <Button variant='ghost' size='icon-lg' onClick={onInfoClick}>
           <Info />
+        </Button>
+        <Button variant='ghost' size='icon-lg' onClick={onDonationClick}>
+          <Gift />
         </Button>
         <Separator orientation='vertical' />
         <div className='px-2'>

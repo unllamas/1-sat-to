@@ -11,11 +11,14 @@ import {
   DialogTitle,
   DialogDescription,
   DialogClose,
+  DialogBody,
+  DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { BtcDigits } from '@/components/btc-digits';
 import { PriceData, Currency, SUPPORTED_CURRENCIES } from '@/lib/types';
 import { Satoshi } from './icon/satoshi';
+import { Dollar } from './icon/dollar';
 
 interface CalculatorModalProps {
   open: boolean;
@@ -81,7 +84,7 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
           </DialogClose>
         </DialogHeader>
 
-        <div className=''>
+        <DialogBody className='gap-0'>
           {/* Top input area */}
           {satsOnTop ? (
             <div
@@ -116,7 +119,9 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                 <p className='text-muted-foreground'>({currency.code})</p>
               </div>
               <div className='flex items-center gap-2'>
-                <span className='text-white text-lg'>{currency.symbol}</span>
+                <span className='text-white'>
+                  <Dollar />
+                </span>
                 <input
                   ref={fiatInputRef}
                   type='number'
@@ -149,7 +154,9 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                 <p className='text-muted-foreground'>({currency.code})</p>
               </div>
               <div className='flex items-center gap-2'>
-                <span className='text-muted-foreground text-lg'>{currency.symbol}</span>
+                <span className='text-muted-foreground'>
+                  <Dollar />
+                </span>
                 <span
                   className={`text-[28px] font-bold tabular-nums ${fiatResult > 0 ? 'text-neutral-300' : 'text-neutral-700'}`}
                 >
@@ -171,18 +178,16 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
               </div>
             </div>
           )}
-
-          {/* Rate display */}
-          <div className='mt-4 p-3'>
-            <div className='flex justify-between items-center'>
-              <p className='text-muted-foreground text-xs'>Tasa actual</p>
-              <p className='text-foreground text-sm font-semibold'>
-                1 BTC = {currency.symbol}
-                {formatFiat(satPrice * 100000000)} <span className='text-muted-foreground'>{currency.code}</span>
-              </p>
-            </div>
+        </DialogBody>
+        <DialogFooter>
+          <div className='flex justify-between items-center w-full'>
+            <p className='text-muted-foreground text-xs'>Tasa actual</p>
+            <p className='text-foreground text-sm font-semibold'>
+              1 BTC = {currency.symbol}
+              {formatFiat(satPrice * 100000000)} <span className='text-muted-foreground'>{currency.code}</span>
+            </p>
           </div>
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

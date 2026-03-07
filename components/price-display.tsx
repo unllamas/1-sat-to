@@ -3,6 +3,7 @@
 import { Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PriceData, Currency, SUPPORTED_CURRENCIES } from '@/lib/types';
+import { Dollar } from './icon/dollar';
 
 interface PriceDisplayProps {
   price: PriceData | null;
@@ -32,7 +33,9 @@ export function PriceDisplay({ price, priceChange, timeframeLabel }: PriceDispla
 
       <div className='flex items-end gap-2'>
         <div className='flex items-center gap-2'>
-          <span className='text-neutral-400 text-lg font-medium'>{currency.symbol}</span>
+          <div className='text-muted-foreground'>
+            <Dollar />
+          </div>
           <span className='text-white text-5xl font-bold tracking-tight tabular-nums'>
             {price ? formatSatPrice(price.satPrice) : '—'}
           </span>

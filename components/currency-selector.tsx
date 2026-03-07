@@ -21,7 +21,7 @@ export function CurrencySelector({ currentCurrency, onCurrencyChange }: Currency
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost'>
+        <Button variant='secondary'>
           {current.flag} {current.code}
           <ChevronDown className='w-4 h-4 text-muted-foreground' />
         </Button>

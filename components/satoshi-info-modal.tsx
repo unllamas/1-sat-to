@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogClose,
+  DialogBody,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from './ui/card';
@@ -31,7 +32,7 @@ export function SatoshiInfoModal({ open, onOpenChange }: SatoshiInfoModalProps) 
           </DialogClose>
         </DialogHeader>
 
-        <div className='space-y-4 pb-4'>
+        <DialogBody>
           <p className='text-foreground leading-relaxed'>
             Un <span className='text-white font-semibold'>Satoshi</span> (o SAT) es la unidad mas pequena de Bitcoin.
             Lleva el nombre de <span className='text-white font-medium'>Satoshi Nakamoto</span>, el creador anonimo de
@@ -70,7 +71,7 @@ export function SatoshiInfoModal({ open, onOpenChange }: SatoshiInfoModalProps) 
               </span>
             </li>
           </ul> */}
-        </div>
+        </DialogBody>
       </DialogContent>
     </Dialog>
   );

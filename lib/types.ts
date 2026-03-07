@@ -26,11 +26,10 @@ export const SUPPORTED_CURRENCIES: Currency[] = [
   { code: 'MXN', name: 'Peso Mexicano', symbol: '$', flag: '🇲🇽' },
   { code: 'COP', name: 'Peso Colombiano', symbol: '$', flag: '🇨🇴' },
   { code: 'ARS', name: 'Peso Argentino', symbol: '$', flag: '🇦🇷' },
-  { code: 'BRL', name: 'Real Brasileño', symbol: 'R$', flag: '🇧🇷' },
+  { code: 'BRL', name: 'Real Brasileño', symbol: '$', flag: '🇧🇷' },
   { code: 'CLP', name: 'Peso Chileno', symbol: '$', flag: '🇨🇱' },
-  { code: 'PEN', name: 'Sol Peruano', symbol: 'S/', flag: '🇵🇪' },
+  { code: 'PEN', name: 'Sol Peruano', symbol: '$', flag: '🇵🇪' },
   { code: 'USD', name: 'Dólar Estadounidense', symbol: '$', flag: '🇺🇸' },
-  { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺' },
 ];
 
 export const DEFAULT_CURRENCY = 'MXN';
