@@ -9,13 +9,13 @@ import { ThemeProvider } from '@/lib/theme-context';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: '1 SAT = ? MXN | Precio del Satoshi en tiempo real',
+  title: '1 SAT = ? PESO | Precio del Satoshi en tiempo real',
   description:
-    'Visualiza en tiempo real el valor de un Satoshi en pesos mexicanos y otras monedas de Latinoamerica. Incluye calculadora y graficos historicos.',
+    'Visualiza en tiempo real el valor de un Satoshi en PESOS y otras monedas de Latinoamerica. Incluye calculadora y graficos historicos.',
   keywords: ['bitcoin', 'satoshi', 'sat', 'mxn', 'peso mexicano', 'criptomonedas', 'precio bitcoin'],
-  authors: [{ name: '1 SAT = 1 Peso' }],
+  authors: [{ name: '1 SAT = 1 PESO' }],
   openGraph: {
-    title: '1 SAT = ? MXN',
+    title: '1 SAT = ? PESO',
     description: 'Precio del Satoshi en tiempo real',
     type: 'website',
   },
