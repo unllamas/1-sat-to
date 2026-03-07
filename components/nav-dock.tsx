@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 interface NavDockProps {
   onCalculatorClick: () => void;
-  onThemeClick: () => void;
+  onThemeClick?: () => void;
   onInfoClick: () => void;
   onDonationClick: () => void;
 }

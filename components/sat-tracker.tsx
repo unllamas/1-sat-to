@@ -41,7 +41,7 @@ export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerPro
   const displaySatPrice = hoveredPoint?.value ?? price?.satPrice ?? 0;
 
   const [calculatorOpen, setCalculatorOpen] = useState(false);
-  const [themeOpen, setThemeOpen] = useState(false);
+  // const [themeOpen, setThemeOpen] = useState(false);
   const [satoshiInfoOpen, setSatoshiInfoOpen] = useState(false);
   const [donationOpen, setDonationOpen] = useState(false);
 
@@ -84,7 +84,7 @@ export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerPro
 
       <NavDock
         onCalculatorClick={() => setCalculatorOpen(true)}
-        onThemeClick={() => setThemeOpen(true)}
+        // onThemeClick={() => setThemeOpen(true)}
         onInfoClick={() => setSatoshiInfoOpen(true)}
         onDonationClick={() => setDonationOpen(true)}
       />
