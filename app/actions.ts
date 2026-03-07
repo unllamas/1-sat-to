@@ -40,36 +40,7 @@ export async function getPrice(currency: string = 'MXN'): Promise<PriceData | nu
       continue;
     }
   }
-
   return null;
-}
-
-// export type Timeframe = '3m' | '6m' | '1y' | '5y';
-
-// export const TIMEFRAME_CONFIG: Record<Timeframe, { label: string; daysBack: number; intervalMinutes: number }> = {
-//   '3m': { label: '3M', daysBack: 90, intervalMinutes: 480 },
-//   '6m': { label: '6M', daysBack: 180, intervalMinutes: 720 },
-//   '1y': { label: '1A', daysBack: 365, intervalMinutes: 1440 },
-//   '5y': { label: '5A', daysBack: 1825, intervalMinutes: 4320 },
-// };
-
-/**
- * Yadio historical endpoint response shape:
- * {
- *   "currency": "MXN",
- *   "start": 1234567890,
- *   "end":   1234567890,
- *   "data": [
- *     [timestamp_unix, price_float],
- *     ...
- *   ]
- * }
- */
-interface YadioHistoricalResponse {
-  currency: string;
-  start: number;
-  end: number;
-  data: [number, number][];
 }
 
 function dedup(data: HistoricalDataPoint[]): HistoricalDataPoint[] {
@@ -80,109 +51,48 @@ function dedup(data: HistoricalDataPoint[]): HistoricalDataPoint[] {
   return Array.from(seen.values()).sort((a, b) => a.time - b.time);
 }
 
-function generateSyntheticData(daysBack: number, intervalMinutes: number): HistoricalDataPoint[] {
-  const data: HistoricalDataPoint[] = [];
-  const now = Math.floor(Date.now() / 1000);
-  const start = now - daysBack * 86400;
-  const interval = intervalMinutes * 60;
-  const total = Math.floor((now - start) / interval);
-
-  // Start with a base SAT price and generate realistic movement
-  let price = 0.019 * (1 + (Math.random() - 0.5) * 0.1);
-  const raw = [price];
-
-  for (let i = 1; i < total; i++) {
-    price *= 1 + (Math.random() - 0.48) * 0.002;
-    raw.push(price);
-  }
-
-  const currentPrice = 0.019; // approximate current SAT price in MXN
-  const adj = currentPrice / raw[raw.length - 1];
-
-  for (let i = 0; i < total; i++) {
-    data.push({
-      time: start + i * interval,
-      value: raw[i] * (1 + (adj - 1) * (i / (total - 1))),
-    });
-  }
-
-  return data;
-}
-
+/**
+ * CryptoCompare
+ * - Datos reales del mercado
+ * - Sin restricciones geográficas
+ * - Historia completa (5 años en una sola llamada)
+ */
 export async function getHistoricalData(
   currency: string = 'MXN',
   timeframe: Timeframe = '3m',
 ): Promise<HistoricalDataPoint[]> {
-  const { daysBack, intervalMinutes } = TIMEFRAME_CONFIG[timeframe];
+  const { daysBack } = TIMEFRAME_CONFIG[timeframe];
 
-  // Timestamp de corte en segundos (igual que antes)
-  const cutoffTimestamp = Math.floor(Date.now() / 1000) - daysBack * 86400;
+  // Limit seguro (2000 = máximo gratuito y cubre 5+ años)
+  const limit = Math.min(2000, daysBack + 30);
+  const toTs = Math.floor(Date.now() / 1000);
 
-  const symbol = `BTC${currency.toUpperCase()}`; // BTCMXN, BTCARS, BTCUSD, etc.
-  const interval = '1d'; // Diario = perfecto para gráficos de meses/años (más eficiente)
+  const url = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=${currency.toUpperCase()}&limit=${limit}&toTs=${toTs}`;
 
   try {
-    const rawData = await fetchAllBinanceKlines(symbol, interval, cutoffTimestamp);
-
-    if (!rawData || rawData.length === 0) {
-      throw new Error('Sin datos de Binance');
-    }
-
-    // Formateamos exactamente igual que Yadio
-    const formatted: HistoricalDataPoint[] = rawData
-      .map((k: any[]) => ({
-        // Binance devuelve openTime en milisegundos → lo pasamos a segundos
-        time: Math.floor(k[0] / 1000),
-        // close = precio de 1 BTC en la moneda (igual que Yadio)
-        value: parseFloat(k[4]) / SATS_PER_BTC,
-      }))
-      .filter((d) => Number.isFinite(d.time) && Number.isFinite(d.value) && d.value > 0);
-
-    // Orden cronológico (Binance ya viene ordenado, pero por si acaso)
-    formatted.sort((a, b) => a.time - b.time);
-
-    // Filtramos al rango del timeframe
-    const filtered = formatted.filter((d) => d.time >= cutoffTimestamp);
-
-    // Si quedó muy poco, usamos todo lo disponible
-    const result = filtered.length > 2 ? filtered : formatted;
-
-    return dedup(result);
-  } catch (error) {
-    console.error(`[getHistoricalData] Error Binance ${symbol}:`, error);
-    return generateSyntheticData(daysBack, intervalMinutes);
-  }
-}
-
-// ==================== HELPER REUTILIZABLE ====================
-async function fetchAllBinanceKlines(symbol: string, interval: string, cutoffTimestamp: number): Promise<any[]> {
-  const startTime = cutoffTimestamp * 1000; // ms
-  const endTime = Date.now();
-  let allData: any[] = [];
-  let currentStart = startTime;
-  const limit = 1000;
-
-  while (currentStart < endTime) {
-    const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&startTime=${currentStart}&endTime=${endTime}&limit=${limit}`;
-
     const resp = await fetch(url, {
-      // Misma revalidación que tenías (cada 5 minutos)
-      next: { revalidate: 300 },
+      next: { revalidate: 300 }, // cache 5 minutos
       headers: { Accept: 'application/json' },
     });
 
     if (!resp.ok) {
-      const text = await resp.text();
-      throw new Error(`HTTP ${resp.status}: ${text}`);
+      throw new Error(`HTTP ${resp.status}`);
     }
 
-    const chunk: any[] = await resp.json();
+    const json = await resp.json();
 
-    if (!Array.isArray(chunk) || chunk.length === 0) break;
+    if (!json?.Data?.Data || !Array.isArray(json.Data.Data)) {
+      throw new Error('Respuesta inválida de CryptoCompare');
+    }
 
-    allData = [...allData, ...chunk];
-    currentStart = chunk[chunk.length - 1][0] + 1; // siguiente vela
+    const formatted: HistoricalDataPoint[] = json.Data.Data.map((d: any) => ({
+      time: d.time,
+      value: (d.close || 0) / SATS_PER_BTC,
+    })).filter((d: any) => Number.isFinite(d.value) && d.value > 0);
+
+    return dedup(formatted);
+  } catch (error) {
+    console.error(`[getHistoricalData] Error CryptoCompare BTC/${currency}:`, error);
+    return [];
   }
-
-  return allData;
 }
