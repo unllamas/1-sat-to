@@ -113,9 +113,6 @@ dependencies:
   embla-carousel-react:
     specifier: 8.6.0
     version: 8.6.0(react@19.2.4)
-  flag-icons:
-    specifier: ^7.5.0
-    version: 7.5.0
   geist:
     specifier: ^1.7.0
     version: 1.7.0(next@16.1.6)
@@ -2307,10 +2304,6 @@ packages:
   /fast-equals@5.4.0:
     resolution: {integrity: sha512-jt2DW/aNFNwke7AUd+Z+e6pz39KO5rzdbbFCg2sGafS4mk13MI7Z8O5z9cADNn5lhGODIgLwug6TZO2ctf7kcw==}
     engines: {node: '>=6.0.0'}
-    dev: false
-
-  /flag-icons@7.5.0:
-    resolution: {integrity: sha512-kd+MNXviFIg5hijH766tt+3x76ele1AXlo4zDdCxIvqWZhKt4T83bOtxUOOMlTx/EcFdUMH5yvQgYlFh1EqqFg==}
     dev: false
 
   /fraction.js@5.3.4:
