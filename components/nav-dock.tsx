@@ -25,9 +25,9 @@ export function NavDock({ onCalculatorClick, onThemeClick, onInfoClick, onDonati
         <Button variant='ghost' size='icon-lg' onClick={onDonationClick}>
           <Gift />
         </Button>
-        {/* <Button variant='ghost' size='icon-lg' onClick={onThemeClick}>
+        <Button variant='ghost' size='icon-lg' onClick={onThemeClick}>
           <Palette />
-        </Button> */}
+        </Button>
       </div>
       <div className='relative z-10'>
         <span className='text-sm text-muted-foreground'>by</span>
