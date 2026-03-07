@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Check, X } from 'lucide-react';
 
@@ -8,26 +8,34 @@ import type { PaymentStep } from '@/types';
 import { Button } from '@/components/ui/button';
 import { QRCodeDisplay } from './qr-code-display';
 import { DialogBody, DialogClose, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
+import { useLightning } from '@/context/lightning-context';
 
 interface StepGenerateQRProps {
-  invoice: string;
-  step: PaymentStep;
-  error: string | null;
+  onBack?: () => void;
+  onNext?: () => void | undefined;
 }
 
-export function StepGenerateQR({ invoice, step, error = null }: StepGenerateQRProps) {
+export function StepGenerateQR({ onBack, onNext }: StepGenerateQRProps) {
   const [copied, setCopied] = useState(false);
 
+  const { invoice, status, isPaid, error } = useLightning();
+
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(invoice);
+    await navigator.clipboard.writeText(invoice as string);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  useEffect(() => {
+    if (isPaid || error) {
+      onNext?.();
+    }
+  }, [isPaid, error]);
+
   return (
     <>
       <DialogHeader className='flex-row items-center justify-between'>
-        <DialogTitle className='text-base font-semibold text-white'>Scan and Pay</DialogTitle>
+        <DialogTitle className='text-base font-semibold text-white'>Escanear y pagar</DialogTitle>
         <DialogClose asChild>
           <Button variant='secondary' size='icon'>
             <X />
@@ -38,25 +46,28 @@ export function StepGenerateQR({ invoice, step, error = null }: StepGenerateQRPr
       {!error && (
         <>
           <DialogBody className='gap-4'>
-            <QRCodeDisplay value={invoice} />
+            <QRCodeDisplay value={invoice as string} />
             <div className='inline-flex items-center gap-2 px-4 text-sm text-muted-foreground'>
               {invoice ? (
                 <>
                   <div className='size-2 bg-blue-500 rounded-full animate-pulse' />
-                  <p>Waiting Payment...</p>
+                  <p>Esperando pago...</p>
                 </>
               ) : (
                 <>
                   <div className='size-2 bg-orange-500 rounded-full animate-pulse' />
-                  <p>Generating Invoice...</p>
+                  <p>Generando invoice...</p>
                 </>
               )}
             </div>
           </DialogBody>
 
           <DialogFooter>
-            <Button className='w-full' variant='outline' onClick={handleCopy} disabled={!!copied || !invoice}>
-              {copied ? <Check className='size-4' /> : <>Copy Invoice</>}
+            <Button className='flex-1' variant='secondary' onClick={onBack}>
+              Volver
+            </Button>
+            <Button className='flex-1' variant='outline' onClick={handleCopy} disabled={!!copied || !invoice}>
+              {copied ? <Check className='size-4' /> : <>Copiar</>}
             </Button>
           </DialogFooter>
         </>

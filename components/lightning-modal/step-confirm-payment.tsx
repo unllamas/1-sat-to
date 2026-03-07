@@ -43,8 +43,8 @@ export function StepConfirmPayment({ plan, onConfirm, onBack, isGenerating, curr
           </div>
           <div className='flex items-center justify-between text-foreground'>
             <p>Total</p>
-            <div className='flex items-center gap-2'>
-              <p>
+            <div className='flex items-center gap-1'>
+              <p className='font-bold'>
                 ${total}
                 {/* <span className='text-muted-foreground'>,00</span> */}
               </p>
@@ -52,18 +52,18 @@ export function StepConfirmPayment({ plan, onConfirm, onBack, isGenerating, curr
             </div>
           </div>
           <p className='text-left text-xs text-muted-foreground'>
-            By clicking "Confirm", you will create a single payment invoice supported by{' '}
-            <span className='text-foreground'>Bitcoin</span> using{' '}
+            Al hacer clic en "Confirmar", creará una única factura de pago compatible con{' '}
+            <span className='text-foreground'>Bitcoin</span> mediante{' '}
             <span className='text-foreground'>Lightning Network</span>.
           </p>
         </div>
       </DialogBody>
       <DialogFooter>
         <Button className='flex-1' variant='secondary' onClick={onBack} disabled={isGenerating}>
-          Back
+          Volver
         </Button>
         <Button className='flex-1' onClick={() => onConfirm(currentCurrency)} disabled={isGenerating}>
-          {isGenerating ? <LoaderCircle className='size-4 animate-spin' /> : 'Confirm'}
+          {isGenerating ? <LoaderCircle className='size-4 animate-spin' /> : 'Confirmar'}
         </Button>
       </DialogFooter>
     </>

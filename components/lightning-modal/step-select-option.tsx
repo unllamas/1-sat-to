@@ -8,10 +8,10 @@ import { X } from 'lucide-react';
 
 interface StepSelectOptionProps {
   plans: LightningPlan[];
-  onSelectPlan: (plan: LightningPlan) => void;
+  onNext: (plan: LightningPlan) => void;
 }
 
-export function StepSelectOption({ plans, onSelectPlan }: StepSelectOptionProps) {
+export function StepSelectOption({ plans, onNext }: StepSelectOptionProps) {
   return (
     <>
       <DialogHeader className='flex-row items-center justify-between'>
@@ -34,7 +34,7 @@ export function StepSelectOption({ plans, onSelectPlan }: StepSelectOptionProps)
       </div> */}
       <DialogBody className='flex-row flex-wrap gap-2 justify-center'>
         {plans.map((plan: LightningPlan) => (
-          <Button className='px-8' variant='secondary' key={plan?.id} onClick={() => onSelectPlan(plan)}>
+          <Button className='px-8' variant='secondary' key={plan?.id} onClick={() => onNext(plan)}>
             ${plan?.price}
           </Button>
         ))}
