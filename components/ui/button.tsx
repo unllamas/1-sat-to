@@ -22,7 +22,7 @@ const buttonVariants = cva(
         default: "h-10 px-4 py-2 has-[>svg]:px-3 [&_svg:not([class*='size-'])]:size-4",
         sm: "h-8 gap-1.5 px-3 has-[>svg]:px-2.5 [&_svg:not([class*='size-'])]:size-4",
         lg: "h-10 px-6 has-[>svg]:px-4 [&_svg:not([class*='size-'])]:size-4",
-        icon: "min-w-10 min-h-10 size-4 [&_svg:not([class*='size-'])]:size-4",
+        icon: "min-w-10 min-h-10 text-xs size-4 [&_svg:not([class*='size-'])]:size-4",
         'icon-md': 'min-w-12 min-h-12 size-6',
         'icon-lg': 'min-w-14 min-h-14 size-8',
       },
