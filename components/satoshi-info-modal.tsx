@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Satoshi } from './icon/satoshi';
 
 interface SatoshiInfoModalProps {
   open: boolean;
@@ -42,7 +43,10 @@ export function SatoshiInfoModal({ open, onOpenChange }: SatoshiInfoModalProps) 
           {/* <div className='w-auto p-0.5 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% rounded-xl'> */}
           <Card className='bg-background/20 backdrop-blur-sm shadow-2xl shadow-black'>
             <CardContent className='text-center'>
-              <span className='text-white text-lg'>100,000,000 SATs</span>
+              <p className='inline-flex items-center text-white text-xl'>
+                <Satoshi className='size-5 text-foreground' />
+                {Number(100000000).toLocaleString('es-ES')} <span className='ml-1 text-muted-foreground'>SATs</span>
+              </p>
               <p className='text-muted-foreground text-md'>= 1 Bitcoin</p>
             </CardContent>
           </Card>
