@@ -12,6 +12,7 @@ import { SatoshiInfoSheet } from '@/components/satoshi-info-sheet';
 import { CurrencySelector } from '@/components/currency-selector';
 import { NavDock } from '@/components/nav-dock';
 import { DEFAULT_CURRENCY } from '@/lib/types';
+import { SatoshiInfoModal } from './satoshi-info-modal';
 
 interface SatTrackerProps {
   initialCurrency?: string;
@@ -71,7 +72,8 @@ export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerPro
 
       <ThemeModal open={themeOpen} onOpenChange={setThemeOpen} />
 
-      <SatoshiInfoSheet open={satoshiInfoOpen} onOpenChange={setSatoshiInfoOpen} />
+      {/* <SatoshiInfoSheet open={satoshiInfoOpen} onOpenChange={setSatoshiInfoOpen} /> */}
+      <SatoshiInfoModal open={satoshiInfoOpen} onOpenChange={setSatoshiInfoOpen} />
     </div>
   );
 }

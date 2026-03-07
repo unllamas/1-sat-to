@@ -16,10 +16,9 @@ export function NavDock({ onCalculatorClick, onThemeClick, onInfoClick }: NavDoc
         <Button variant='ghost' size='icon' onClick={onCalculatorClick}>
           <Calculator className='w-4 h-4' />
         </Button>
-        <Button variant='ghost' size='icon' onClick={onThemeClick}>
+        {/* <Button variant='ghost' size='icon' onClick={onThemeClick}>
           <Palette className='w-4 h-4' />
-        </Button>
-
+        </Button> */}
         <Button variant='ghost' size='icon' onClick={onInfoClick}>
           <Info className='w-4 h-4' />
         </Button>
