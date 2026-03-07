@@ -14,17 +14,19 @@ export function TimeframeSelector({ current, onChange }: TimeframeSelectorProps)
 
   return (
     <div className='relative z-10 px-5 pb-2 flex justify-center'>
-      <div className='flex gap-1 bg-card rounded-full p-2 border border-white/4 w-fit'>
-        {timeframes.map(([key, config]) => (
-          <Button
-            key={key}
-            size='icon-md'
-            onClick={() => onChange(key)}
-            variant={current === key ? 'default' : 'ghost'}
-          >
-            {config.label}
-          </Button>
-        ))}
+      <div className='w-auto p-0.5 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% backdrop-blur-sm rounded-full'>
+        <div className='flex gap-1 w-fit p-2 bg-background/0 backdrop-blur-xl rounded-full shadow-2xl shadow-black'>
+          {timeframes.map(([key, config]) => (
+            <Button
+              key={key}
+              size='icon-md'
+              onClick={() => onChange(key)}
+              variant={current === key ? 'default' : 'ghost'}
+            >
+              {config.label}
+            </Button>
+          ))}
+        </div>
       </div>
     </div>
   );
