@@ -39,12 +39,14 @@ export function SatoshiInfoModal({ open, onOpenChange }: SatoshiInfoModalProps) 
             Bitcoin.
           </p>
 
-          <Card className=''>
+          {/* <div className='w-auto p-0.5 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% rounded-xl'> */}
+          <Card className='bg-background/20 backdrop-blur-sm shadow-2xl shadow-black'>
             <CardContent className='text-center'>
               <span className='text-white text-lg'>100,000,000 SATs</span>
               <p className='text-muted-foreground text-md'>= 1 Bitcoin</p>
             </CardContent>
           </Card>
+          {/* </div> */}
         </DialogBody>
         <DialogFooter>
           <p className='text-muted-foreground leading-relaxed text-center text-xs'>
