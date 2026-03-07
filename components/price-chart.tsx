@@ -40,7 +40,7 @@ export function PriceChart({ data, isLoading, onHover, currency = 'MXN' }: Price
   }
 
   return (
-    <div className='absolute z-0 bottom-0 w-full h-[65vh] pr-24'>
+    <div className='absolute z-0 bottom-0 w-full h-[65vh]'>
       <ResponsiveContainer width='100%' height='100%'>
         <AreaChart
           data={chartData}
@@ -96,13 +96,13 @@ export function PriceChart({ data, isLoading, onHover, currency = 'MXN' }: Price
       {/* Tooltip personalizado: siempre arriba de la línea, NO sigue el mouse */}
       {activePoint && tooltipX > 0 && (
         <div
-          className='absolute z-50 top-4 p-0.5 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% rounded-full'
+          className='absolute z-50 top-14 p-0.5 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% rounded-full'
           style={{
             left: `${Math.max(20, tooltipX - 65)}px`,
           }}
         >
-          <div className='px-4 py-2 bg-background/20 backdrop-blur-sm rounded-full shadow-2xl shadow-black text-sm text-foreground pointer-events-none'>
-            <p className='text-sm text-foreground'>
+          <div className='px-4 py-2 bg-background/20 backdrop-blur-md rounded-full shadow-2xl shadow-black text-sm text-foreground pointer-events-none'>
+            <p className='text-sm text-foreground whitespace-nowrap'>
               {new Date(activePoint.time * 1000)
                 .toLocaleDateString('es-ES', {
                   day: 'numeric',
