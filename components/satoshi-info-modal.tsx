@@ -45,7 +45,7 @@ export function SatoshiInfoModal({ open, onOpenChange }: SatoshiInfoModalProps) 
             </CardContent>
           </Card>
 
-          <p className='text-foreground leading-relaxed'>
+          <p className='text-foreground leading-relaxed text-center text-xs'>
             Al igual que un peso se divide en centavos, Bitcoin se divide en Satoshis. Esto permite realizar
             microtransacciones y facilita el uso diario de la red.
           </p>
