@@ -75,8 +75,8 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
         <DialogHeader className='flex-row items-center justify-between'>
           <DialogTitle className='text-base font-semibold text-white'>Calculadora</DialogTitle>
           <DialogClose asChild>
-            <Button variant='ghost' size='icon'>
-              <X className='w-4 h-4' />
+            <Button variant='secondary' size='icon'>
+              <X />
             </Button>
           </DialogClose>
         </DialogHeader>

@@ -24,13 +24,13 @@ export function BtcDigits({ sats, isActive = true }: BtcDigitsProps) {
     }
 
     const getDigitClass = (globalIdx: number) => {
-      if (firstNonZero === -1) return 'text-neutral-700';
-      return globalIdx >= firstNonZero ? 'text-white' : 'text-neutral-700';
+      if (firstNonZero === -1) return 'text-muted-foreground';
+      return globalIdx >= firstNonZero ? 'text-foreground' : 'text-muted-foreground';
     };
 
     const getSepClass = () => {
-      if (firstNonZero !== -1 && firstNonZero < intPart.length) return 'text-white';
-      return 'text-neutral-700';
+      if (firstNonZero !== -1 && firstNonZero < intPart.length) return 'text-foreground';
+      return 'text-muted-foreground';
     };
 
     return { intPart, decPart, getDigitClass, getSepClass, intLen: intPart.length };
@@ -40,13 +40,13 @@ export function BtcDigits({ sats, isActive = true }: BtcDigitsProps) {
     <div className='flex items-baseline gap-0 text-[28px] font-bold tabular-nums tracking-tight'>
       {/* Integer part */}
       {digits.intPart.split('').map((d, i) => (
-        <span key={`int-${i}`} className={cn(digits.getDigitClass(i), !isActive && 'text-neutral-600')}>
+        <span key={`int-${i}`} className={cn(digits.getDigitClass(i), !isActive && 'text-muted-foreground')}>
           {d}
         </span>
       ))}
 
       {/* Comma separator */}
-      <span className={cn('mx-px', digits.getSepClass(), !isActive && 'text-neutral-600')}>,</span>
+      <span className={cn('mx-px', digits.getSepClass(), !isActive && 'text-muted-foreground')}>,</span>
 
       {/* Decimal group 1: d1 d2 */}
       {digits.decPart
@@ -55,7 +55,7 @@ export function BtcDigits({ sats, isActive = true }: BtcDigitsProps) {
         .map((d, i) => (
           <span
             key={`dec1-${i}`}
-            className={cn(digits.getDigitClass(digits.intLen + i), !isActive && 'text-neutral-600')}
+            className={cn(digits.getDigitClass(digits.intLen + i), !isActive && 'text-muted-foreground')}
           >
             {d}
           </span>
@@ -71,7 +71,7 @@ export function BtcDigits({ sats, isActive = true }: BtcDigitsProps) {
         .map((d, i) => (
           <span
             key={`dec2-${i}`}
-            className={cn(digits.getDigitClass(digits.intLen + 2 + i), !isActive && 'text-neutral-600')}
+            className={cn(digits.getDigitClass(digits.intLen + 2 + i), !isActive && 'text-muted-foreground')}
           >
             {d}
           </span>
@@ -87,7 +87,7 @@ export function BtcDigits({ sats, isActive = true }: BtcDigitsProps) {
         .map((d, i) => (
           <span
             key={`dec3-${i}`}
-            className={cn(digits.getDigitClass(digits.intLen + 5 + i), !isActive && 'text-neutral-600')}
+            className={cn(digits.getDigitClass(digits.intLen + 5 + i), !isActive && 'text-muted-foreground')}
           >
             {d}
           </span>
