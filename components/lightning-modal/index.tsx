@@ -3,8 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Check, MessageCircleWarning } from 'lucide-react';
 
-// import { useLightning } from '@/hooks/use-lightning';
-
 import { Button } from '@/components/ui/button';
 import { StepSelectOption } from '@/components/lightning-modal/step-select-option';
 import { StepConfirmPayment } from '@/components/lightning-modal/step-confirm-payment';

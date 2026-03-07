@@ -1,4 +1,3 @@
-// context/LightningContext.tsx
 'use client';
 
 import { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
