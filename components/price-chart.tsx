@@ -8,10 +8,9 @@ interface PriceChartProps {
   data: HistoricalDataPoint[];
   isLoading?: boolean;
   onHover?: (point: HistoricalDataPoint | null) => void;
-  currency?: string;
 }
 
-export function PriceChart({ data, isLoading, onHover, currency = 'MXN' }: PriceChartProps) {
+export function PriceChart({ data, isLoading, onHover }: PriceChartProps) {
   const { chartData, isPositive } = useMemo(() => {
     if (!data.length) return { chartData: [], isPositive: true };
 
@@ -35,6 +34,18 @@ export function PriceChart({ data, isLoading, onHover, currency = 'MXN' }: Price
     return (
       <div className='absolute z-0 bottom-0 w-full h-[65vh] flex items-center justify-center'>
         <div className='w-8 h-8 border-4 border-neutral-500/30 border-t-neutral-900 rounded-full animate-spin' />
+      </div>
+    );
+  }
+
+  if (!isLoading && chartData.length === 0) {
+    return (
+      <div className='absolute z-0 bottom-0 flex flex-col items-center justify-center w-full h-[80vh] px-4 text-center'>
+        <div className='text-2xl mb-4'>⚠️</div>
+        <p className='text-foreground text-lg font-medium'>No se pudieron obtener datos históricos</p>
+        <p className='text-muted-foreground mt-2 max-w-sm'>
+          Estamos teniendo problemas con nuestro proveedor. Intenta recargar en unos minutos.
+        </p>
       </div>
     );
   }
