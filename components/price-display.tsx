@@ -1,9 +1,8 @@
 'use client';
 
-import { Info } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { PriceData, Currency, SUPPORTED_CURRENCIES } from '@/lib/types';
-import { Dollar } from './icon/dollar';
+import { PriceData, SUPPORTED_CURRENCIES } from '@/lib/types';
+
+import { Dollar } from '@/components/icon/dollar';
 
 interface PriceDisplayProps {
   price: PriceData | null;

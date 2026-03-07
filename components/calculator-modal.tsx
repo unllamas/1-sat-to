@@ -16,9 +16,8 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { BtcDigits } from '@/components/btc-digits';
-import { Satoshi } from '@/components/icon/satoshi';
 import { Dollar } from '@/components/icon/dollar';
-import { Bitcoin } from './icon/bitcoin';
+import { Bitcoin } from '@/components/icon/bitcoin';
 
 interface CalculatorModalProps {
   open: boolean;

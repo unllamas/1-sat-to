@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { Area, AreaChart, ResponsiveContainer, YAxis, Tooltip } from 'recharts';
+
 import { HistoricalDataPoint } from '@/lib/types';
 
 interface PriceChartProps {

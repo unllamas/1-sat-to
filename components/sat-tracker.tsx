@@ -14,7 +14,7 @@ import { PriceDisplay } from '@/components/price-display';
 import { PriceChart } from '@/components/price-chart';
 import { TimeframeSelector } from '@/components/timeframe-selector';
 import { CalculatorModal } from '@/components/calculator-modal';
-import { ThemeModal } from '@/components/theme-modal';
+// import { ThemeModal } from '@/components/theme-modal';
 import { CurrencySelector } from '@/components/currency-selector';
 import { NavDock } from '@/components/nav-dock';
 import { SatoshiInfoModal } from '@/components/satoshi-info-modal';
@@ -59,9 +59,9 @@ export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerPro
   return (
     <div className='relative w-full h-screen flex flex-col overflow-hidden'>
       {/* Header with currency selector */}
-      {/* <div className='absolute top-4 right-4 z-20'>
+      <div className='absolute top-4 right-4 z-20'>
         <CurrencySelector currentCurrency={currency} onCurrencyChange={handleCurrencyChange} />
-      </div> */}
+      </div>
 
       <div className='relative flex flex-col pt-24 flex-1'>
         <PriceDisplay
@@ -80,7 +80,7 @@ export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerPro
         />
       </div>
 
-      <PriceChart data={historicalData} isLoading={isLoading} onHover={setHoveredPoint} currency={currency} />
+      <PriceChart data={historicalData} isLoading={isLoading} onHover={setHoveredPoint} />
 
       <NavDock
         onCalculatorClick={() => setCalculatorOpen(true)}

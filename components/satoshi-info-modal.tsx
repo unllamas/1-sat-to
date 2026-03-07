@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Satoshi } from './icon/satoshi';
+import { Satoshi } from '@/components/icon/satoshi';
 
 interface SatoshiInfoModalProps {
   open: boolean;

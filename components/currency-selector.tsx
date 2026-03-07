@@ -1,6 +1,9 @@
 'use client';
 
-import { ChevronDown, Globe } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+
+import { SUPPORTED_CURRENCIES } from '@/lib/types';
+
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -8,7 +11,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { SUPPORTED_CURRENCIES, Currency } from '@/lib/types';
 
 interface CurrencySelectorProps {
   currentCurrency: string;

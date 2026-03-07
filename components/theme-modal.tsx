@@ -1,19 +1,13 @@
 'use client';
 
-import { Palette, X } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogClose,
-  DialogBody,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 import { useTheme, THEMES } from '@/lib/theme-context';
 import { Theme } from '@/lib/types';
+
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose, DialogBody } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 interface ThemeModalProps {
   open: boolean;
@@ -73,11 +67,11 @@ export function ThemeModal({ open, onOpenChange }: ThemeModalProps) {
                 'rounded-xl border-2 p-2.5 text-center transition-all cursor-pointer',
                 theme === name
                   ? 'border-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.15)]'
-                  : 'border-white/[0.06] hover:border-orange-500/40',
+                  : 'border-white/6 hover:border-orange-500/40',
               )}
             >
               <div
-                className='w-full h-14 rounded-lg mb-2 border border-white/[0.04] overflow-hidden'
+                className='w-full h-14 rounded-lg mb-2 border border-white/4 overflow-hidden'
                 style={THEME_PREVIEWS[name]}
               />
               <span className='text-[11px] font-medium text-neutral-300'>{label}</span>

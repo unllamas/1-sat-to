@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+
 import { SatTracker } from '@/components/sat-tracker';
 
 export default function Home() {

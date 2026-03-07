@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
+
 import { convertToSatoshis, generateLightningInvoice } from '@/lib/lightning';
 
 // ---- Types ----
