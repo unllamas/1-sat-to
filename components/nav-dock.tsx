@@ -19,7 +19,7 @@ export function NavDock({ onCalculatorClick, onThemeClick, onInfoClick, onDonati
       <div className='w-auto p-0.5 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% rounded-full'>
         <div className='relative z-0 flex items-center gap-2 p-2 bg-background/20 backdrop-blur-sm rounded-full shadow-2xl shadow-black'>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button variant='ghost' size='icon-lg' onClick={onInfoClick}>
                 <Info />
               </Button>
@@ -30,7 +30,7 @@ export function NavDock({ onCalculatorClick, onThemeClick, onInfoClick, onDonati
           </Tooltip>
 
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button variant='ghost' size='icon-lg' onClick={onCalculatorClick}>
                 <Calculator />
               </Button>
@@ -41,7 +41,7 @@ export function NavDock({ onCalculatorClick, onThemeClick, onInfoClick, onDonati
           </Tooltip>
 
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button variant='ghost' size='icon-lg' onClick={onDonationClick}>
                 <Gift />
               </Button>
