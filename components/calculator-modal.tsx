@@ -15,6 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { BtcDigits } from '@/components/btc-digits';
 import { PriceData, Currency, SUPPORTED_CURRENCIES } from '@/lib/types';
+import { Satoshi } from './icon/satoshi';
 
 interface CalculatorModalProps {
   open: boolean;
@@ -63,15 +64,15 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
     }
   }, [open, satsOnTop]);
 
-  const formatSatPrice = (p: number): string => {
-    if (p >= 0.01) return p.toFixed(4);
-    return p.toFixed(6);
-  };
+  // const formatSatPrice = (p: number): string => {
+  //   if (p >= 0.01) return p.toFixed(3);
+  //   return p.toFixed(2);
+  // };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent showCloseButton={false}>
-        <DialogHeader className='flex-row items-center justify-between space-y-0 mb-5'>
+      <DialogContent className='max-w-sm' showCloseButton={false}>
+        <DialogHeader className='flex-row items-center justify-between'>
           <DialogTitle className='text-base font-semibold text-white'>Calculadora</DialogTitle>
           <DialogClose asChild>
             <Button variant='ghost' size='icon'>
@@ -80,86 +81,106 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
           </DialogClose>
         </DialogHeader>
 
-        {/* Top input area */}
         <div className=''>
-          <label className='block text-neutral-500 text-[11px] font-medium mb-2 uppercase tracking-wider'>
-            {satsOnTop ? 'Satoshis (SATs)' : `${currency.name} (${currency.code})`}
-          </label>
-
+          {/* Top input area */}
           {satsOnTop ? (
             <div
-              className='bg-neutral-800 border-2 border-orange-500 rounded-xl p-4 flex items-center gap-3 min-h-18 cursor-text'
+              className='flex flex-col justify-center min-h-20 px-4 bg-input rounded-xl border border-orange-500 cursor-text'
               onClick={() => satsInputRef.current?.focus()}
             >
-              <span className='text-orange-500 text-2xl font-bold shrink-0'>B</span>
-              <input
-                ref={satsInputRef}
-                type='number'
-                value={satsValue}
-                onChange={(e) => setSatsValue(e.target.value)}
-                className='absolute opacity-0 w-0 h-0'
-                min='0'
-              />
-              <BtcDigits sats={satsNum} isActive />
-            </div>
-          ) : (
-            <div className='bg-neutral-800 border-2 border-orange-500 rounded-xl p-4 flex items-center gap-3 min-h-18'>
-              <span className='text-orange-500 text-xl font-semibold'>{currency.symbol}</span>
-              <input
-                ref={fiatInputRef}
-                type='number'
-                value={fiatValue}
-                onChange={(e) => setFiatValue(e.target.value)}
-                placeholder='0'
-                min='0'
-                className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-orange-500 placeholder:text-neutral-700'
-              />
-            </div>
-          )}
-        </div>
-
-        {/* Switch button */}
-        <div className='relative z-10 flex justify-center'>
-          <Button variant='secondary' size='icon' onClick={handleSwitch}>
-            <ArrowUpDown className='w-4 h-4' />
-          </Button>
-        </div>
-
-        {/* Bottom output area */}
-        <div className=''>
-          {/* <label className='block text-neutral-500 text-[11px] font-medium mb-2 uppercase tracking-wider'>
-            {satsOnTop ? `${currency.name} (${currency.code})` : 'Satoshis (SATs)'}
-          </label> */}
-
-          {satsOnTop ? (
-            <div className='bg-neutral-950 border border-white/6 rounded-xl p-4 flex items-center gap-3 min-h-18'>
-              <span className='text-neutral-600 text-xl font-semibold'>{currency.symbol}</span>
-              <span
-                className={`text-[28px] font-bold tabular-nums ${fiatResult > 0 ? 'text-neutral-300' : 'text-neutral-700'}`}
-              >
-                {fiatResult > 0 ? `$${formatFiat(fiatResult)}` : '0.00'}
-              </span>
-            </div>
-          ) : (
-            <div className='flex flex-col justify-center min-h-20 px-4 bg-input border border-white/6 rounded-xl'>
               <div className='flex justify-between w-full text-sm'>
-                <p>Bitcoin</p>
-                <p className='text-muted-foreground'>(BTC)</p>
+                <p>Satoshi</p>
+                <p className='text-muted-foreground'>(SAT)</p>
               </div>
-              {/* <span className='text-neutral-600 text-xl font-bold'>B</span> */}
-              <BtcDigits sats={satsResult} isActive={satsResult > 0} />
+              <div className='flex items-center gap-2'>
+                <span className='text-white'>
+                  <Satoshi className='size-6' />
+                </span>
+                <input
+                  ref={satsInputRef}
+                  type='number'
+                  value={satsValue}
+                  onChange={(e) => setSatsValue(e.target.value)}
+                  className='absolute opacity-0 w-0 h-0'
+                  min='0'
+                  max='100000000'
+                  autoFocus
+                />
+                <BtcDigits sats={satsNum} isActive />
+              </div>
+            </div>
+          ) : (
+            <div className='flex flex-col justify-center min-h-20 px-4 bg-input rounded-xl border border-orange-500 cursor-text'>
+              <div className='flex justify-between w-full text-sm'>
+                <p>{currency.name}</p>
+                <p className='text-muted-foreground'>({currency.code})</p>
+              </div>
+              <div className='flex items-center gap-2'>
+                <span className='text-white text-lg'>{currency.symbol}</span>
+                <input
+                  ref={fiatInputRef}
+                  type='number'
+                  value={fiatValue}
+                  onChange={(e) => setFiatValue(e.target.value)}
+                  placeholder='0'
+                  min='0'
+                  max='100000000'
+                  autoFocus
+                  className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-orange-500 placeholder:text-neutral-700'
+                />
+              </div>
             </div>
           )}
-        </div>
 
-        {/* Rate display */}
-        <div className='bg-neutral-800/50 rounded-xl p-3 border border-white/4'>
-          <div className='flex justify-between items-center'>
-            <span className='text-neutral-500 text-[11px]'>Tasa actual</span>
-            <span className='text-orange-400 text-xs font-semibold'>
-              1 SAT = {currency.symbol}
-              {formatSatPrice(satPrice)} {currency.code}
-            </span>
+          {/* Switch button */}
+          <div className='relative z-10 flex justify-center -my-2'>
+            <div className='p-1 bg-background rounded-full'>
+              <Button variant='secondary' size='icon' onClick={handleSwitch}>
+                <ArrowUpDown className='w-4 h-4' />
+              </Button>
+            </div>
+          </div>
+
+          {/* Bottom output area */}
+          {satsOnTop ? (
+            <div className='flex flex-col justify-center min-h-20 px-4 bg-input border border-border rounded-xl'>
+              <div className='flex justify-between w-full text-sm'>
+                <p>{currency.name}</p>
+                <p className='text-muted-foreground'>({currency.code})</p>
+              </div>
+              <div className='flex items-center gap-2'>
+                <span className='text-muted-foreground text-lg'>{currency.symbol}</span>
+                <span
+                  className={`text-[28px] font-bold tabular-nums ${fiatResult > 0 ? 'text-neutral-300' : 'text-neutral-700'}`}
+                >
+                  {fiatResult > 0 ? `${formatFiat(fiatResult)}` : '0.00'}
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className='flex flex-col justify-center min-h-20 px-4 bg-input border border-border rounded-xl'>
+              <div className='flex justify-between w-full text-sm'>
+                <p>Satoshi</p>
+                <p className='text-muted-foreground'>(SAT)</p>
+              </div>
+              <div className='flex items-center gap-2'>
+                <span className='text-muted-foreground'>
+                  <Satoshi className='size-6' />
+                </span>
+                <BtcDigits sats={satsResult} isActive={satsResult > 0} />
+              </div>
+            </div>
+          )}
+
+          {/* Rate display */}
+          <div className='mt-4 p-3'>
+            <div className='flex justify-between items-center'>
+              <p className='text-muted-foreground text-xs'>Tasa actual</p>
+              <p className='text-foreground text-sm font-semibold'>
+                1 BTC = {currency.symbol}
+                {formatFiat(satPrice * 100000000)} <span className='text-muted-foreground'>{currency.code}</span>
+              </p>
+            </div>
           </div>
         </div>
       </DialogContent>
