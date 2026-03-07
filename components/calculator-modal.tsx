@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/button';
 import { BtcDigits } from '@/components/btc-digits';
 import { Satoshi } from '@/components/icon/satoshi';
 import { Dollar } from '@/components/icon/dollar';
+import { Bitcoin } from './icon/bitcoin';
 
 interface CalculatorModalProps {
   open: boolean;
@@ -87,12 +88,12 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                 onClick={() => satsInputRef.current?.focus()}
               >
                 <div className='flex justify-between w-full text-sm'>
-                  <p>Satoshi</p>
-                  <p className='text-muted-foreground'>(SAT)</p>
+                  <p>Bitcoin</p>
+                  <p className='text-muted-foreground'>(BTC)</p>
                 </div>
                 <div className='flex items-center gap-2'>
                   <span className='text-white'>
-                    <Satoshi className='size-6' />
+                    <Bitcoin className='size-6' />
                   </span>
                   <input
                     ref={satsInputRef}
@@ -122,11 +123,11 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                     type='number'
                     value={fiatValue}
                     onChange={(e) => setFiatValue(e.target.value)}
-                    placeholder='0'
+                    placeholder='0,00'
                     min='0'
                     max='100000000'
                     autoFocus
-                    className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-transparent placeholder:text-muted-foreground'
+                    className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-transparent placeholder:text-foreground/20'
                   />
                 </div>
               </div>
@@ -135,7 +136,7 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
 
           {/* Switch button */}
           <div className='relative z-10 flex justify-center -my-5'>
-            <div className='p-1 bg-background rounded-full'>
+            <div className='p-1 bg-black rounded-full'>
               <Button variant='secondary' size='icon' onClick={handleSwitch}>
                 <ArrowUpDown className='w-4 h-4' />
               </Button>
@@ -155,21 +156,21 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                     <Dollar />
                   </span>
                   <span
-                    className={`text-[28px] font-bold tabular-nums ${fiatResult > 0 ? 'text-foreground' : 'text-muted-foreground'}`}
+                    className={`text-[28px] font-bold tabular-nums ${fiatResult > 0 ? 'text-foreground' : 'text-foreground/20'}`}
                   >
-                    {fiatResult > 0 ? `${formatFiat(fiatResult)}` : '0.00'}
+                    {fiatResult > 0 ? `${formatFiat(fiatResult)}` : '0,00'}
                   </span>
                 </div>
               </div>
             ) : (
               <div className='flex flex-col justify-center min-h-20 px-4 backdrop-blur-sm shadow-lg shadow-black rounded-xl cursor-text'>
                 <div className='flex justify-between w-full text-sm'>
-                  <p>Satoshi</p>
-                  <p className='text-muted-foreground'>(SAT)</p>
+                  <p>Bitcoin</p>
+                  <p className='text-muted-foreground'>(BTC)</p>
                 </div>
                 <div className='flex items-center gap-2'>
                   <span className='text-white'>
-                    <Satoshi className='size-6' />
+                    <Bitcoin className='size-6' />
                   </span>
                   <BtcDigits sats={satsResult} isActive={satsResult > 0} />
                 </div>
