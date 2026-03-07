@@ -1,24 +1,23 @@
 'use client';
 
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Calculator, ArrowUpDown, X } from 'lucide-react';
-import { BitcoinIcon } from '@bitcoin-design/bitcoin-icons-react/filled';
+import { ArrowUpDown, X } from 'lucide-react';
+
+import { PriceData, SUPPORTED_CURRENCIES } from '@/lib/types';
 
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogClose,
   DialogBody,
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { BtcDigits } from '@/components/btc-digits';
-import { PriceData, Currency, SUPPORTED_CURRENCIES } from '@/lib/types';
-import { Satoshi } from './icon/satoshi';
-import { Dollar } from './icon/dollar';
+import { Satoshi } from '@/components/icon/satoshi';
+import { Dollar } from '@/components/icon/dollar';
 
 interface CalculatorModalProps {
   open: boolean;
@@ -66,11 +65,6 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
       }, 100);
     }
   }, [open, satsOnTop]);
-
-  // const formatSatPrice = (p: number): string => {
-  //   if (p >= 0.01) return p.toFixed(2);
-  //   return p.toFixed(3);
-  // };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -131,7 +125,7 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                   min='0'
                   max='100000000'
                   autoFocus
-                  className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-orange-500 placeholder:text-neutral-700'
+                  className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-orange-500 placeholder:text-muted-foreground'
                 />
               </div>
             </div>
@@ -154,11 +148,11 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                 <p className='text-muted-foreground'>({currency.code})</p>
               </div>
               <div className='flex items-center gap-2'>
-                <span className='text-muted-foreground'>
+                <span className='text-white'>
                   <Dollar />
                 </span>
                 <span
-                  className={`text-[28px] font-bold tabular-nums ${fiatResult > 0 ? 'text-neutral-300' : 'text-neutral-700'}`}
+                  className={`text-[28px] font-bold tabular-nums ${fiatResult > 0 ? 'text-foreground' : 'text-muted-foreground'}`}
                 >
                   {fiatResult > 0 ? `${formatFiat(fiatResult)}` : '0.00'}
                 </span>
@@ -171,7 +165,7 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
                 <p className='text-muted-foreground'>(SAT)</p>
               </div>
               <div className='flex items-center gap-2'>
-                <span className='text-muted-foreground'>
+                <span className='text-white'>
                   <Satoshi className='size-6' />
                 </span>
                 <BtcDigits sats={satsResult} isActive={satsResult > 0} />

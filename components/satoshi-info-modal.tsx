@@ -7,12 +7,12 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogClose,
   DialogBody,
+  DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from './ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface SatoshiInfoModalProps {
   open: boolean;
@@ -45,33 +45,13 @@ export function SatoshiInfoModal({ open, onOpenChange }: SatoshiInfoModalProps) 
               <p className='text-muted-foreground text-md'>= 1 Bitcoin</p>
             </CardContent>
           </Card>
-
-          <p className='text-foreground leading-relaxed text-center text-xs'>
+        </DialogBody>
+        <DialogFooter>
+          <p className='text-muted-foreground leading-relaxed text-center text-xs'>
             Al igual que un peso se divide en centavos, Bitcoin se divide en Satoshis. Esto permite realizar
             microtransacciones y facilita el uso diario de la red.
           </p>
-
-          {/* <p className='text-muted-foreground font-medium text-sm uppercase'>Por que usar Satoshis?</p>
-          <ul className='space-y-2'>
-            <li className='flex items-center gap-2'>
-              <span className='text-orange-500'>•</span>
-              <span className='text-foreground text-sm'>
-                Es mas facil decir <span className='text-white font-medium'>&quot;1,000 SATs&quot;</span> que
-                &quot;0.00001 BTC&quot;
-              </span>
-            </li>
-            <li className='flex items-center gap-2'>
-              <span className='text-orange-500'>•</span>
-              <span className='text-foreground text-sm'>Permite expresar cantidades pequenas de forma intuitiva</span>
-            </li>
-            <li className='flex items-center gap-2'>
-              <span className='text-orange-500'>•</span>
-              <span className='text-foreground text-sm'>
-                Es la unidad estandar en la <span className='text-white font-medium'>Lightning Network</span>
-              </span>
-            </li>
-          </ul> */}
-        </DialogBody>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
