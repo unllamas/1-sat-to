@@ -80,59 +80,61 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
 
         <DialogBody className='gap-0'>
           {/* Top input area */}
-          {satsOnTop ? (
-            <div
-              className='flex flex-col justify-center min-h-20 px-4 bg-input rounded-xl border border-orange-500 cursor-text'
-              onClick={() => satsInputRef.current?.focus()}
-            >
-              <div className='flex justify-between w-full text-sm'>
-                <p>Satoshi</p>
-                <p className='text-muted-foreground'>(SAT)</p>
+          <div className='w-auto p-1 bg-black border border-border/60 rounded-2xl'>
+            {satsOnTop ? (
+              <div
+                className='flex flex-col justify-center min-h-20 px-4 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% border border-white/60 backdrop-blur-sm shadow-lg shadow-black rounded-xl cursor-text'
+                onClick={() => satsInputRef.current?.focus()}
+              >
+                <div className='flex justify-between w-full text-sm'>
+                  <p>Satoshi</p>
+                  <p className='text-muted-foreground'>(SAT)</p>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <span className='text-white'>
+                    <Satoshi className='size-6' />
+                  </span>
+                  <input
+                    ref={satsInputRef}
+                    type='number'
+                    value={satsValue}
+                    onChange={(e) => setSatsValue(e.target.value)}
+                    className='absolute opacity-0 w-0 h-0'
+                    min='0'
+                    max='100000000'
+                    autoFocus
+                  />
+                  <BtcDigits sats={satsNum} isActive />
+                </div>
               </div>
-              <div className='flex items-center gap-2'>
-                <span className='text-white'>
-                  <Satoshi className='size-6' />
-                </span>
-                <input
-                  ref={satsInputRef}
-                  type='number'
-                  value={satsValue}
-                  onChange={(e) => setSatsValue(e.target.value)}
-                  className='absolute opacity-0 w-0 h-0'
-                  min='0'
-                  max='100000000'
-                  autoFocus
-                />
-                <BtcDigits sats={satsNum} isActive />
+            ) : (
+              <div className='flex flex-col justify-center min-h-20 px-4 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% border backdrop-blur-sm shadow-lg shadow-black rounded-xl cursor-text'>
+                <div className='flex justify-between w-full text-sm'>
+                  <p>{currency.name}</p>
+                  <p className='text-muted-foreground'>({currency.code})</p>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <span className='text-white'>
+                    <Dollar />
+                  </span>
+                  <input
+                    ref={fiatInputRef}
+                    type='number'
+                    value={fiatValue}
+                    onChange={(e) => setFiatValue(e.target.value)}
+                    placeholder='0'
+                    min='0'
+                    max='100000000'
+                    autoFocus
+                    className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-orange-500 placeholder:text-muted-foreground'
+                  />
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className='flex flex-col justify-center min-h-20 px-4 bg-input rounded-xl border border-orange-500 cursor-text'>
-              <div className='flex justify-between w-full text-sm'>
-                <p>{currency.name}</p>
-                <p className='text-muted-foreground'>({currency.code})</p>
-              </div>
-              <div className='flex items-center gap-2'>
-                <span className='text-white'>
-                  <Dollar />
-                </span>
-                <input
-                  ref={fiatInputRef}
-                  type='number'
-                  value={fiatValue}
-                  onChange={(e) => setFiatValue(e.target.value)}
-                  placeholder='0'
-                  min='0'
-                  max='100000000'
-                  autoFocus
-                  className='bg-transparent border-none outline-none text-white text-[28px] font-bold tabular-nums w-full caret-orange-500 placeholder:text-muted-foreground'
-                />
-              </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Switch button */}
-          <div className='relative z-10 flex justify-center -my-2'>
+          <div className='relative z-10 flex justify-center -my-5'>
             <div className='p-1 bg-background rounded-full'>
               <Button variant='secondary' size='icon' onClick={handleSwitch}>
                 <ArrowUpDown className='w-4 h-4' />
@@ -141,37 +143,39 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
           </div>
 
           {/* Bottom output area */}
-          {satsOnTop ? (
-            <div className='flex flex-col justify-center min-h-20 px-4 bg-input border border-border rounded-xl'>
-              <div className='flex justify-between w-full text-sm'>
-                <p>{currency.name}</p>
-                <p className='text-muted-foreground'>({currency.code})</p>
+          <div className='w-auto p-1 bg-black border border-border/60 rounded-2xl'>
+            {satsOnTop ? (
+              <div className='flex flex-col justify-center min-h-20 px-4 backdrop-blur-sm shadow-lg shadow-black rounded-xl cursor-text'>
+                <div className='flex justify-between w-full text-sm'>
+                  <p>{currency.name}</p>
+                  <p className='text-muted-foreground'>({currency.code})</p>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <span className='text-white'>
+                    <Dollar />
+                  </span>
+                  <span
+                    className={`text-[28px] font-bold tabular-nums ${fiatResult > 0 ? 'text-foreground' : 'text-muted-foreground'}`}
+                  >
+                    {fiatResult > 0 ? `${formatFiat(fiatResult)}` : '0.00'}
+                  </span>
+                </div>
               </div>
-              <div className='flex items-center gap-2'>
-                <span className='text-white'>
-                  <Dollar />
-                </span>
-                <span
-                  className={`text-[28px] font-bold tabular-nums ${fiatResult > 0 ? 'text-foreground' : 'text-muted-foreground'}`}
-                >
-                  {fiatResult > 0 ? `${formatFiat(fiatResult)}` : '0.00'}
-                </span>
+            ) : (
+              <div className='flex flex-col justify-center min-h-20 px-4 backdrop-blur-sm shadow-lg shadow-black rounded-xl cursor-text'>
+                <div className='flex justify-between w-full text-sm'>
+                  <p>Satoshi</p>
+                  <p className='text-muted-foreground'>(SAT)</p>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <span className='text-white'>
+                    <Satoshi className='size-6' />
+                  </span>
+                  <BtcDigits sats={satsResult} isActive={satsResult > 0} />
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className='flex flex-col justify-center min-h-20 px-4 bg-input border border-border rounded-xl'>
-              <div className='flex justify-between w-full text-sm'>
-                <p>Satoshi</p>
-                <p className='text-muted-foreground'>(SAT)</p>
-              </div>
-              <div className='flex items-center gap-2'>
-                <span className='text-white'>
-                  <Satoshi className='size-6' />
-                </span>
-                <BtcDigits sats={satsResult} isActive={satsResult > 0} />
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </DialogBody>
         <DialogFooter>
           <div className='flex justify-between items-center w-full'>
