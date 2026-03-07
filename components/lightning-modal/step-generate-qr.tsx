@@ -46,7 +46,7 @@ export function StepGenerateQR({ onBack, onNext }: StepGenerateQRProps) {
 
       {!error && (
         <>
-          <DialogBody className='gap-4'>
+          <DialogBody className='gap-2'>
             <QRCodeDisplay value={invoice as string} />
             <div className='inline-flex items-center gap-2 px-4 text-sm text-muted-foreground'>
               {invoice ? (
