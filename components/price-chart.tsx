@@ -98,7 +98,7 @@ export function PriceChart({ data, isLoading, onHover, currency = 'MXN' }: Price
         <div
           className='absolute z-50 top-14 p-0.5 bg-radial-[at_25%_25%] from-neutral-600/20 to-neutral-100/20 to-75% rounded-full'
           style={{
-            left: `${Math.max(20, tooltipX - 65)}px`,
+            left: `${Math.max(20, tooltipX - 40)}px`,
           }}
         >
           <div className='px-4 py-2 bg-background/20 backdrop-blur-md rounded-full shadow-2xl shadow-black text-sm text-foreground pointer-events-none'>

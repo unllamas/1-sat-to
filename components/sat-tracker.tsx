@@ -59,9 +59,9 @@ export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerPro
   return (
     <div className='relative w-full h-screen flex flex-col overflow-hidden'>
       {/* Header with currency selector */}
-      {/* <div className='absolute top-4 right-4 z-20'>
+      <div className='absolute top-4 right-4 z-20'>
         <CurrencySelector currentCurrency={currency} onCurrencyChange={handleCurrencyChange} />
-      </div> */}
+      </div>
 
       <div className='relative flex flex-col pt-24 flex-1'>
         <PriceDisplay
