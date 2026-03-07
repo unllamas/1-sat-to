@@ -31,7 +31,7 @@ export function formatFiat(value: number, locale: string = 'es-ES'): string {
 }
 
 export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalProps) {
-  const [satsOnTop, setSatsOnTop] = useState(true);
+  const [satsOnTop, setSatsOnTop] = useState(false);
   const [satsValue, setSatsValue] = useState('');
   const [fiatValue, setFiatValue] = useState('');
   const satsInputRef = useRef<HTMLInputElement>(null);
