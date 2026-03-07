@@ -1,6 +1,6 @@
-# 1 SAT = ? PESO
+# 1-sat-to
 
-**1 SAT = ? PESO** es una aplicación para visualizar en tiempo real el valor de un Satoshi en monedas de Latinoamérica, incluyendo gráficos históricos, calculadora y soporte para donaciones vía Lightning Network.
+**1 SAT TO** es una aplicación para visualizar en tiempo real el valor de un Satoshi en monedas de Latinoamérica, incluyendo gráficos históricos, calculadora y soporte para donaciones vía Lightning Network.
 
 ## ✅ Características
 
@@ -32,8 +32,8 @@ Este proyecto utiliza [pnpm](https://pnpm.io/) para instalar dependencias y ejec
 
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/unllamas/hackaton-mex-bitcoin.git
-cd hackaton-mex-bitcoin
+git clone https://github.com/unllamas/1-sat-to.git
+cd 1-sat-to
 ```
 
 2. Instala las dependencias:
@@ -51,7 +51,7 @@ pnpm dev
 ## 🏗️ Estructura del Proyecto
 
 ```
-[hackaton-mex-bitcoin]/
+[1-sat-to]/
 ├── app/                  # Next.js App Router
 │   ├── actions.ts        # Funciones del servidor para obtener precios
 │   ├── globals.css       # Estilos globales
