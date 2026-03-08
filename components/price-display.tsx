@@ -3,10 +3,11 @@
 import { PriceData, SUPPORTED_CURRENCIES } from '@/lib/types';
 
 import { Dollar } from '@/components/icon/dollar';
+import { Satoshi } from './icon/satoshi';
 
 interface PriceDisplayProps {
   price: PriceData | null;
-  displaySatPrice?: number; // ←←← NUEVO: valor del hover
+  displaySatPrice?: number;
   priceChange: number | null;
   timeframeLabel: string;
 }
@@ -24,7 +25,6 @@ const getTimeframeText = (tf: string) => {
     '6M': 'Últimos 6 meses',
     '1A': 'Año pasado',
     '5A': 'Últimos 5 años',
-    // agrega más si tienes otros timeframes
   };
   return map[tf];
 };
@@ -32,15 +32,15 @@ const getTimeframeText = (tf: string) => {
 export function PriceDisplay({ price, displaySatPrice, priceChange, timeframeLabel }: PriceDisplayProps) {
   const currency = SUPPORTED_CURRENCIES.find((c) => c.code === price?.currency) || SUPPORTED_CURRENCIES[0];
 
-  // ←←← Usamos el valor del hover si existe, sino el precio actual
   const satPriceToShow = displaySatPrice ?? price?.satPrice ?? 0;
 
   const timeframeText = getTimeframeText(timeframeLabel);
 
   return (
     <div className='relative z-10 px-5 pt-5 pb-3 flex flex-col items-center text-center'>
-      <div className='flex items-center gap-2 mt-0.5'>
-        <span className='text-neutral-400 text-md font-medium'>1 SAT =</span>
+      <div className='flex items-center gap-1 text-muted-foreground'>
+        <Satoshi className='size-4' />
+        <span className='text-muted-foreground text-md font-medium'>1 SAT =</span>
       </div>
 
       <div className='flex items-end gap-2'>
@@ -48,11 +48,11 @@ export function PriceDisplay({ price, displaySatPrice, priceChange, timeframeLab
           <div className='text-muted-foreground'>
             <Dollar />
           </div>
-          <span className='text-white text-5xl font-bold tracking-tight tabular-nums'>
+          <span className='text-foreground text-5xl font-bold tracking-tight tabular-nums'>
             {satPriceToShow ? Number(formatSatPrice(satPriceToShow)).toLocaleString('es-ES') : '—'}
           </span>
         </div>
-        <span className='text-neutral-400 text-lg font-medium'>{price?.currency || 'MXN'}</span>
+        <span className='text-muted-foreground text-lg font-medium'>{price?.currency || 'MXN'}</span>
       </div>
 
       <div className='flex items-center gap-3 mt-1.5'>
@@ -62,7 +62,7 @@ export function PriceDisplay({ price, displaySatPrice, priceChange, timeframeLab
             {Number(priceChange.toFixed(2)).toLocaleString('es-ES')}%
           </span>
         ) : (
-          <span className='text-xs font-medium text-neutral-500'>Cargando...</span>
+          <span className='text-xs font-medium text-text-muted-foreground'>Cargando...</span>
         )}
         <span className='text-muted-foreground text-xs'>|</span>
         <span className='text-muted-foreground text-xs'>{timeframeText}</span>

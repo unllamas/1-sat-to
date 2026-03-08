@@ -51,7 +51,7 @@ export function StepConfirmPayment({ plan, onConfirm, onBack, isGenerating, curr
               <span className='text-muted-foreground'>{currentCurrency}</span>
             </div>
           </div>
-          <p className='text-left text-xs text-muted-foreground'>
+          <p className='text-center text-xs text-muted-foreground'>
             Al hacer clic en "Confirmar", creará una única factura de pago compatible con{' '}
             <span className='text-foreground'>Bitcoin</span> mediante{' '}
             <span className='text-foreground'>Lightning Network</span>.
