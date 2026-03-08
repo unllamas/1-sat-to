@@ -181,7 +181,7 @@ export function CalculatorModal({ open, onOpenChange, price }: CalculatorModalPr
           <div className='flex justify-between items-center w-full'>
             <p className='text-muted-foreground text-xs'>Tasa actual</p>
             <p className='text-foreground text-sm font-semibold'>
-              1 BTC = {currency.symbol}
+              1 <span className='text-muted-foreground'>BTC</span> = {currency.symbol}
               {formatFiat(satPrice * 100000000)} <span className='text-muted-foreground'>{currency.code}</span>
             </p>
           </div>
