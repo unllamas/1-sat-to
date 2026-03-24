@@ -8,15 +8,30 @@ import { PriceData, HistoricalDataPoint, Timeframe, TIMEFRAME_CONFIG } from '@/l
 
 interface UseSatTrackerOptions {
   currency: string;
+  initialPrice: PriceData | null;
+  initialHistoricalData: HistoricalDataPoint[];
   initialTimeframe?: Timeframe;
 }
 
-export function useSatTracker({ currency, initialTimeframe = '3m' }: UseSatTrackerOptions) {
-  const [price, setPrice] = useState<PriceData | null>(null);
-  const [historicalData, setHistoricalData] = useState<HistoricalDataPoint[]>([]);
+export function useSatTracker({
+  currency,
+  initialPrice,
+  initialHistoricalData,
+  initialTimeframe = '3m',
+}: UseSatTrackerOptions) {
+  // Inicializar con la data del servidor → sin loading inicial
+  const [price, setPrice] = useState<PriceData | null>(initialPrice);
+  const [historicalData, setHistoricalData] = useState<HistoricalDataPoint[]>(initialHistoricalData);
   const [timeframe, setTimeframe] = useState<Timeframe>(initialTimeframe);
-  const [isLoading, setIsLoading] = useState(true);
-  const [priceChange, setPriceChange] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false); // false porque ya tenemos data
+  const [priceChange, setPriceChange] = useState<number | null>(() => {
+    // Calcular el price change inicial
+    if (initialHistoricalData.length > 0 && initialPrice) {
+      const firstPrice = initialHistoricalData[0].value;
+      return ((initialPrice.satPrice - firstPrice) / firstPrice) * 100;
+    }
+    return null;
+  });
 
   const fetchPrice = useCallback(async () => {
     const newPrice = await getPrice(currency);
@@ -31,27 +46,31 @@ export function useSatTracker({ currency, initialTimeframe = '3m' }: UseSatTrack
       const data = await getHistoricalData(currency, tf);
       setHistoricalData(data);
       setIsLoading(false);
-
-      // Calculate price change
-      if (data.length > 0 && price) {
-        const firstPrice = data[0].value;
-        const change = ((price.satPrice - firstPrice) / firstPrice) * 100;
-        setPriceChange(change);
-      }
     },
-    [currency, price],
+    [currency],
   );
 
-  // Initial fetch
+  // Cuando cambia la currency (navegación), re-fetch todo
   useEffect(() => {
-    const init = async () => {
-      await fetchPrice();
-      await fetchHistorical(timeframe);
-    };
-    init();
+    // Si la currency cambió respecto a la data inicial, refetch
+    if (price?.currency !== currency) {
+      const init = async () => {
+        setIsLoading(true);
+        await fetchPrice();
+        await fetchHistorical(timeframe);
+      };
+      init();
+    }
   }, [currency]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Update price change when historical data or price changes
+  // Sincronizar cuando llega nueva data del servidor (navegación entre currencies)
+  useEffect(() => {
+    setPrice(initialPrice);
+    setHistoricalData(initialHistoricalData);
+    setIsLoading(false);
+  }, [initialPrice, initialHistoricalData]);
+
+  // Recalcular price change cuando cambian los datos
   useEffect(() => {
     if (historicalData.length > 0 && price) {
       const firstPrice = historicalData[0].value;
@@ -60,13 +79,13 @@ export function useSatTracker({ currency, initialTimeframe = '3m' }: UseSatTrack
     }
   }, [historicalData, price]);
 
-  // Refetch price every minute
+  // Refetch price cada minuto
   useEffect(() => {
     const interval = setInterval(fetchPrice, 60000);
     return () => clearInterval(interval);
   }, [fetchPrice]);
 
-  // Refetch historical data every 5 minutes
+  // Refetch historical cada 5 minutos
   useEffect(() => {
     const interval = setInterval(() => fetchHistorical(timeframe), 300000);
     return () => clearInterval(interval);
