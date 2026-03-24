@@ -59,7 +59,7 @@ export function NavDock({ onCalculatorClick, onThemeClick, onInfoClick, onDonati
       <div className='relative z-10'>
         <span className='text-sm text-muted-foreground'>by</span>
         <Button variant='link' asChild>
-          <Link href='https://www.jonallamas.com/' target='_blank'>
+          <Link href='https://www.jonallamas.com/?utm_source=1-sat-to.vercel.app' target='_blank'>
             @unllamas <ArrowUpRight className='text-muted-foreground' />
           </Link>
         </Button>
