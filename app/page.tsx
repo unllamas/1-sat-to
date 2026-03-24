@@ -1,17 +1,28 @@
-import { Suspense } from 'react';
+'use client';
 
-import { SatTracker } from '@/components/sat-tracker';
+import Link from 'next/link';
 
-export default function Home() {
+import { SUPPORTED_CURRENCIES } from '@/lib/types';
+
+import { Button } from '@/components/ui/button';
+
+export default function Page() {
   return (
-    <Suspense
-      fallback={
-        <div className='min-h-screen flex items-center justify-center bg-neutral-950'>
-          <div className='w-8 h-8 border-2 border-green-500/30 border-t-green-500 rounded-full animate-spin' />
+    <div className='min-h-screen flex items-center justify-center'>
+      <div className='flex flex-col gap-8 w-full max-w-2xl mx-auto px-4'>
+        <h1 className='text-center text-foreground text-5xl font-bold tracking-tight tabular-nums'>1 SAT a...</h1>
+        <div className='flex flex-wrap justify-center gap-2'>
+          {SUPPORTED_CURRENCIES?.map((currency) => (
+            <Button key={currency?.code} className='gap-1' variant='secondary' asChild>
+              <Link href={`/${currency?.code}`}>
+                <span className='mr-2'>{currency.flag}</span>
+                <span className='flex-1'>{currency.name}</span>
+                {/* <span className='text-muted-foreground text-xs'>{currency.code}</span> */}
+              </Link>
+            </Button>
+          ))}
         </div>
-      }
-    >
-      <SatTracker />
-    </Suspense>
+      </div>
+    </div>
   );
 }
