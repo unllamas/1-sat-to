@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 
 import { useSatTracker } from '@/hooks/use-sat-tracker';
 
@@ -20,15 +20,13 @@ import { NavDock } from '@/components/nav-dock';
 import { SatoshiInfoModal } from '@/components/satoshi-info-modal';
 import { LightningPayModal } from '@/components/lightning-modal';
 
-interface SatTrackerProps {
-  initialCurrency?: string;
-}
+export function SatTracker() {
+  const params = useParams<{ currency: string }>();
+  const currencyParams = params?.currency;
 
-export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerProps) {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
-  const currency = searchParams.get('currency') || initialCurrency;
+  const currency = searchParams.get('currency') || currencyParams;
 
   const { price, historicalData, timeframe, timeframeLabel, isLoading, priceChange, changeTimeframe } = useSatTracker({
     currency,
@@ -45,22 +43,11 @@ export function SatTracker({ initialCurrency = DEFAULT_CURRENCY }: SatTrackerPro
   const [satoshiInfoOpen, setSatoshiInfoOpen] = useState(false);
   const [donationOpen, setDonationOpen] = useState(false);
 
-  const handleCurrencyChange = (newCurrency: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (newCurrency === DEFAULT_CURRENCY) {
-      params.delete('currency');
-    } else {
-      params.set('currency', newCurrency);
-    }
-    const queryString = params.toString();
-    router.push(queryString ? `/?${queryString}` : '/');
-  };
-
   return (
     <div className='relative w-full h-screen flex flex-col overflow-hidden'>
       {/* Header with currency selector */}
       <div className='absolute top-4 right-4 z-20'>
-        <CurrencySelector currentCurrency={currency} onCurrencyChange={handleCurrencyChange} />
+        <CurrencySelector currentCurrency={currency} />
       </div>
 
       <div className='relative flex flex-col pt-24 flex-1'>
